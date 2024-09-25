@@ -5,7 +5,7 @@ namespace EspacoStefaniners.BarService.Models
 {
     public class Pedido
     {
-        [JsonIgnore]
+        [SwaggerIgnorePost]
         [Required]
         [Key]
         public int Id { get; set; }

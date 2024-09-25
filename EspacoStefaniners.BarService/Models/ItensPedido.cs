@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using System.Web.Http;
 
 namespace EspacoStefaniners.BarService.Models
 {
@@ -8,15 +9,15 @@ namespace EspacoStefaniners.BarService.Models
     {
         [Required]
         [Key]
-        [JsonIgnore]
+        [SwaggerIgnorePost]
         public int Id { get; set; }
 
         [ForeignKey("Pedido"), Required]
-        [JsonIgnore]
+        [SwaggerIgnorePost]
         public int IdPedido { get; set; }
 
         [ForeignKey("Produto"), Required]
-        [JsonIgnore]
+        [SwaggerIgnorePost]
         public int IdProduto { get; set; }
 
         [Required]
