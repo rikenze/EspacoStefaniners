@@ -18,8 +18,4 @@
     <ProjectReference Include="..\EspacoStefaniners.ServiceDefaults\EspacoStefaniners.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

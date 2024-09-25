@@ -21,19 +21,19 @@ public class BebidasController : ControllerBase
         return StatusCode(200);
     }
 
-    [HttpGet(Name = "AdicionarBebida")]
+    [HttpPost(Name = "AdicionarBebida")]
     public ActionResult Post()
     {
         return StatusCode(200);
     }
 
-    [HttpGet(Name = "EditarBebida")]
+    [HttpPut(Name = "EditarBebida")]
     public ActionResult Put()
     {
         return StatusCode(200);
     }
 
-    [HttpGet(Name = "DeletarBebida")]
+    [HttpDelete(Name = "DeletarBebida")]
     public ActionResult Delete()
     {
         return StatusCode(200);
