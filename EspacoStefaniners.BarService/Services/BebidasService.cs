@@ -25,8 +25,15 @@ namespace EspacoStefaniners.BarService.Services
             return await _context.Produtos.ToListAsync();
         }
 
-        public async Task<Produto> AddBebida(Produto bebida)
+        public async Task<Produto?> AddBebida(Produto bebida)
         {
+            var produto = await _context.Produtos.FindAsync(bebida.Id);
+
+            if (produto != null)
+            {
+                return null;
+            }
+
             await _context.Produtos.AddAsync(bebida);
             await _context.SaveChangesAsync();
             return bebida;

@@ -48,7 +48,9 @@ public class BebidasController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Produto>> Post([FromBody] Produto produto)
     {
-        await _bebidasService.AddBebida(produto);
+        var result = await _bebidasService.AddBebida(produto);
+        if (result == null)
+            return BadRequest();
         return CreatedAtAction(nameof(GetBebidaPorI), new { id  = produto.Id}, produto);
     }
 
