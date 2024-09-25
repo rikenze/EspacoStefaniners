@@ -5,8 +5,10 @@ namespace EspacoStefaniners.BarService.Services.Interfaces
 {
     public interface IBebidasService
     {
-         Task<IList<Produto>> GetAllBebidasAsync();
-         Task<Produto> GetBebidaPorIdAsync(int id);
-         Task<Produto> AddBebida(Produto bebida);
+        Task<IList<Produto>> GetAllBebidasAsync();
+        Task<Produto> GetBebidaPorIdAsync(int id);
+        Task<Produto> AddBebida(Produto bebida);
+        Task<Produto?> AtualizarProdutoAsync(int id, Produto produto);
+        Task<Produto?> DeletarProdutoAsync(int id);
     }
 }

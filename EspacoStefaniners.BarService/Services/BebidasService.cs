@@ -31,5 +31,34 @@ namespace EspacoStefaniners.BarService.Services
             await _context.SaveChangesAsync();
             return bebida;
         }
+
+        public async Task<Produto?> AtualizarProdutoAsync(int id, Produto bebida)
+        {
+            var produto = await _context.Produtos.FindAsync(id);
+
+            if (produto == null)
+            {
+                return null;
+            }
+
+            produto.NomeProduto = bebida.NomeProduto;
+            produto.Valor = bebida.Valor;
+
+            await _context.SaveChangesAsync();
+            return produto;
+        }
+
+        public async Task<Produto?> DeletarProdutoAsync(int id)
+        {
+            var produto = await _context.Produtos.FindAsync(id);
+
+            if (produto == null)
+            {
+                return null;
+            }
+            _context.Produtos.Remove(produto);
+            await _context.SaveChangesAsync();
+            return produto;
+        }
     }
 }

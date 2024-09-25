@@ -52,15 +52,23 @@ public class BebidasController : ControllerBase
         return CreatedAtAction(nameof(GetBebidaPorI), new { id  = produto.Id}, produto);
     }
 
-    [HttpPut]
-    public ActionResult Put()
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Produto>> Put(int id, [FromBody] Produto produto)
     {
-        return StatusCode(200);
+        var result = await _bebidasService.AtualizarProdutoAsync(id, produto);
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
     }
 
-    [HttpDelete]
-    public ActionResult Delete()
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<Produto>> Delete(int id)
     {
-        return StatusCode(200);
+        var result = await _bebidasService.DeletarProdutoAsync(id);
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
     }
 }
