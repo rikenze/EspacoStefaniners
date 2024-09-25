@@ -1,0 +1,6 @@
+@EspacoStefaniners.BarService_HostAddress = http://localhost:5070
+
+GET {{EspacoStefaniners.BarService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
