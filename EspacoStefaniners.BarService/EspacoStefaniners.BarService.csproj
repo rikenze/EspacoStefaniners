@@ -24,4 +24,10 @@
     <ProjectReference Include="..\EspacoStefaniners.ServiceDefaults\EspacoStefaniners.ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EspacoStefaniners.BarService.xml</DocumentationFile>
+  </PropertyGroup>
+
+
 </Project>

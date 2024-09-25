@@ -3,6 +3,8 @@ using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Services;
 using EspacoStefaniners.BarService.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,15 @@ builder.AddServiceDefaults();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(s =>
+{
+    s.SwaggerDoc("v1", new OpenApiInfo { Title = "EspacoStefaniners", Version = "v1" });
+
+    // Adicione esta linha para incluir o arquivo XML
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    s.IncludeXmlComments(xmlPath);
+});
 
 builder.Services.AddDbContext<IBarContext, BarContext>();
 
@@ -32,7 +42,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(
-        s => s.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1")
+        s => s.SwaggerEndpoint("/swagger/v1/swagger.json", "EspacoStefaniners V1")
     );
 }
 
