@@ -1,11 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 
-namespace EspacoStefaniners.IntegrationTests.Tests
+namespace EspacoStefaniners.IntegrationTests.BarService
 {
     public class IntegrationBarService
     {
-         [Fact]
+        [Fact]
         public async Task GetWebResourceRootReturnsOkStatusCode()
         {
             // Arrange
@@ -28,4 +28,5 @@ namespace EspacoStefaniners.IntegrationTests.Tests
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
-    }}
+    }
+}
