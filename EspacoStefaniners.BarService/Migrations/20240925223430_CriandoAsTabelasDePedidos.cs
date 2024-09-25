@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EspacoStefaniners.BarService.Migrations
 {
     /// <inheritdoc />
-    public partial class CriandoAsTabelasDoBar : Migration
+    public partial class CriandoAsTabelasDePedidos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

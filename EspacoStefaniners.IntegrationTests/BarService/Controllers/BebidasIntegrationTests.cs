@@ -32,7 +32,7 @@ namespace EspacoStefaniners.IntegrationTests.BarService.Controllers
         [Fact]
         public async Task GetBebidaPorIdAsync_RetornaBebidaSelecionada_DeveRetornarABebida()
         {
-            IBebidasService bebidasService = new BebidasService(_context);
+            IProdutoService bebidasService = new ProdutoService(_context);
 
             var cerveja = new Produto
             {
@@ -41,14 +41,14 @@ namespace EspacoStefaniners.IntegrationTests.BarService.Controllers
                 Valor = 12
             };
 
-            var produto = await bebidasService.GetBebidaPorIdAsync(cerveja.Id);
+            var produto = await bebidasService.GetProdutoPorIdAsync(cerveja.Id);
 
             if (produto == null)
             {
-                await bebidasService.AddBebida(cerveja);
+                await bebidasService.AddProduto(cerveja);
             }
 
-            var bebida = await bebidasService.GetBebidaPorIdAsync(cerveja.Id);
+            var bebida = await bebidasService.GetProdutoPorIdAsync(cerveja.Id);
             Assert.NotNull(bebida);
         }
     }

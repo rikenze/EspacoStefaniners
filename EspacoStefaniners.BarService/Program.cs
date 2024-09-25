@@ -11,8 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BarConnection");
 builder.Services.AddDbContext<BarContext>(opts => opts.UseSqlite(connectionString));
 
-builder.Services.AddScoped<IBebidasService, BebidasService>();
-
+// Adiciona os serviços
+builder.Services.AddScoped<IPedidoService, PedidoService>();
+builder.Services.AddScoped<IItensPedidoService, ItensPedidoService>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.AddServiceDefaults();
 
 // Add services to the container.
@@ -54,6 +56,6 @@ app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Bebidas}/{action=GetAll}/{id?}");
+    pattern: "{controller=Produtos}/{action=GetAll}/{id?}");
 
 app.Run();

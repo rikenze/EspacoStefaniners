@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace EspacoStefaniners.BarService.Models
 {
     public class Pedido
     {
+        [JsonIgnore]
         [Required]
         [Key]
         public int Id { get; set; }
@@ -19,6 +21,7 @@ namespace EspacoStefaniners.BarService.Models
         public bool Pago { get; set; }
 
         // Propriedade de navegação para ItensPedido
-        public virtual ICollection<ItensPedido> Itens { get; set; } = new List<ItensPedido>(); // Inicializa a coleção
+        [JsonIgnore]
+        public virtual ICollection<ItensPedido> Itens { get; set; } = new List<ItensPedido>();
     }
 }

@@ -23,7 +23,7 @@ namespace EspacoStefaniners.IntegrationTests.BarService
             var httpClient = app.CreateHttpClient("barservice");
             await resourceNotificationService.WaitForResourceAsync("barservice", KnownResourceStates.Running).WaitAsync(TimeSpan.FromSeconds(30));
 
-            var response = await httpClient.GetAsync("/bebidas");
+            var response = await httpClient.GetAsync("/produtos");
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);

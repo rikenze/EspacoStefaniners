@@ -6,26 +6,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EspacoStefaniners.BarService.Services
 {
-    public class BebidasService : IBebidasService
+    public class ProdutoService : IProdutoService
     {
         private readonly IBarContext _context;
 
-        public BebidasService(IBarContext context)
+        public ProdutoService(IBarContext context)
         {
             _context = context;
         }
 
-        public async Task<Produto> GetBebidaPorIdAsync(int id)
+        public async Task<Produto> GetProdutoPorIdAsync(int id)
         {
             return await _context.Produtos.FindAsync(id);
         }
 
-        public async Task<IList<Produto>> GetAllBebidasAsync()
+        public async Task<IList<Produto>> GetAllProdutosAsync()
         {
             return await _context.Produtos.ToListAsync();
         }
 
-        public async Task<Produto?> AddBebida(Produto bebida)
+        public async Task<Produto?> AddProduto(Produto bebida)
         {
             var produto = await _context.Produtos.FindAsync(bebida.Id);
 

@@ -22,6 +22,18 @@ namespace EspacoStefaniners.BarService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ItensPedido>()
+               .HasOne(ip => ip.Pedido)
+               .WithMany(p => p.Itens)
+               .HasForeignKey(ip => ip.IdPedido)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ItensPedido>()
+                .HasOne(ip => ip.Produto)
+                .WithMany()
+                .HasForeignKey(ip => ip.IdProduto)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
     }

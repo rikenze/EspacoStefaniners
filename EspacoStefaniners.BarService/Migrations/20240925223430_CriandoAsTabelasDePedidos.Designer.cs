@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EspacoStefaniners.BarService.Migrations
 {
     [DbContext(typeof(BarContext))]
-    [Migration("20240925123149_CriandoAsTabelasDoBar")]
-    partial class CriandoAsTabelasDoBar
+    [Migration("20240925223430_CriandoAsTabelasDePedidos")]
+    partial class CriandoAsTabelasDePedidos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EspacoStefaniners.BarService.Models
 {
@@ -7,18 +8,22 @@ namespace EspacoStefaniners.BarService.Models
     {
         [Required]
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
-        [Required]
-        [ForeignKey("Pedido")]
+
+        [ForeignKey("Pedido"), Required]
+        [JsonIgnore]
         public int IdPedido { get; set; }
-        [Required]
-        [ForeignKey("Produto")]
+
+        [ForeignKey("Produto"), Required]
+        [JsonIgnore]
         public int IdProduto { get; set; }
+
         [Required]
         public int Quantidade { get; set; }
 
         // Propriedades de navegação
-        public virtual Pedido Pedido { get; set; } // Propriedade de navegação para Pedido
-        public virtual Produto Produto { get; set; } // Presumindo que exista uma classe Produto
+        public virtual Pedido Pedido { get; set; }
+        public virtual Produto Produto { get; set; }
     }
 }

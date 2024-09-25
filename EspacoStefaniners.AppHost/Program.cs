@@ -14,10 +14,4 @@ var barservice = builder.AddProject<Projects.EspacoStefaniners_BarService>("bars
     .WithExternalHttpEndpoints();
     //.WithReference(cache);
 
-//builder.AddProject<Projects.EspacoStefaniners_BarService>("webfrontend")
-//    .WithExternalHttpEndpoints()
-//    .WithReference(cache)
-//    .WithReference(barservice);
-
-
 builder.Build().Run();
