@@ -18,7 +18,16 @@ builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.AddServiceDefaults();
 
 // Add services to the container.
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()  // Permite qualquer método (GET, POST, etc.)
+                   .AllowAnyHeader(); 
+        });
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -51,13 +60,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowAllOrigins");
 //app.UseAuthorization();
 
 app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Produtos}/{action=GetAll}/{id?}");
+    pattern: "{controller=Pedidos}/{action=GetAll}/{id?}");
 
 app.Run();
