@@ -41,6 +41,20 @@ namespace EspacoStefaniners.BarService.Controllers
         }
 
         /// <summary>
+        /// Obtém um item de pedido pelo proprio Id do pedido.
+        /// </summary>
+        /// <param name="id">ID do pedido do item de pedido</param>
+        /// <returns>Retorna o item de pedido correspondente ao ID</returns>
+        [HttpGet("idPedido/{id}")]
+        public async Task<ActionResult<ItensPedido>> GetByIdPedidoAsync(int id)
+        {
+            var itensPedido = await _itensPedidoService.GetItensPedidoByIdPedidoAsync(id);
+                                                        
+            if (itensPedido == null) return NotFound();
+            return Ok(itensPedido);
+        }
+
+        /// <summary>
         /// Adiciona um novo item de pedido.
         /// </summary>
         /// <param name="itensPedido">Dados do item de pedido</param>

@@ -4,6 +4,7 @@ using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace EspacoStefaniners.BarService.Services
 {
@@ -18,12 +19,17 @@ namespace EspacoStefaniners.BarService.Services
 
         public async Task<IEnumerable<ItensPedido>> GetAllItensPedidoAsync()
         {
-            return await _context.ItensPedidos.ToListAsync();
+            return await _context.ItensPedidos.Include(x => x.Produto).Include(y => y.Pedido).ToListAsync();
         }
 
-        public async Task<ItensPedido> GetItensPedidoByIdAsync(int id)
+        public async Task<ItensPedido?> GetItensPedidoByIdAsync(int id)
         {
-            return await _context.ItensPedidos.FindAsync(id);
+            return await _context.ItensPedidos.Include(p => p.Pedido).Include(pr => pr.Produto).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<ItensPedido?> GetItensPedidoByIdPedidoAsync(int id)
+        {
+            return await _context.ItensPedidos.Include(p => p.Pedido).Include(pr => pr.Produto).FirstOrDefaultAsync(x => x.IdPedido == id);
         }
 
         public async Task<ItensPedido> AddItensPedidoAsync(ItensPedido itensPedido)

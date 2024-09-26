@@ -9,5 +9,6 @@ namespace EspacoStefaniners.BarService.Services.Interfaces
         Task<ItensPedido> AddItensPedidoAsync(ItensPedido itensPedido);
         Task<ItensPedido> UpdateItensPedidoAsync(int id, ItensPedido itensPedido);
         Task<bool> DeleteItensPedidoAsync(int id);
+        Task<ItensPedido?> GetItensPedidoByIdPedidoAsync(int id);
     }
 }
