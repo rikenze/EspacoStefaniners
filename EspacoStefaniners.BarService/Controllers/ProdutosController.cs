@@ -1,5 +1,4 @@
 ﻿using EspacoStefaniners.BarService.Services.Interfaces;
-using EspacoStefaniners.BarService.Services;
 using Microsoft.AspNetCore.Mvc;
 using EspacoStefaniners.BarService.Models;
 

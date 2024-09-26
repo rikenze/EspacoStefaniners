@@ -1,5 +1,4 @@
-﻿using EspacoStefaniners.BarService.Data;
-using EspacoStefaniners.BarService.Data.Interfaces;
+﻿using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
