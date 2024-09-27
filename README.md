@@ -2,7 +2,7 @@
  
 # API .NET 8 ASPIRE
 
-Este é um projeto de API construído com ASP.NET 8. A API fornece funcionalidades básicas para gerenciar dados.
+Este é um projeto de API construído com .NET 8. A API fornece funcionalidades básicas para gerenciar dados.
 
 ## Pré-requisitos
 
