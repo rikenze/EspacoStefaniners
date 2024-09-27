@@ -22,6 +22,6 @@ namespace EspacoStefaniners.BarService.Models
 
         // Propriedade de navegação para ItensPedido
         [JsonIgnore]
-        public virtual ICollection<ItensPedido> Itens { get; set; } = new List<ItensPedido>();
+        public virtual ICollection<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
     }
 }

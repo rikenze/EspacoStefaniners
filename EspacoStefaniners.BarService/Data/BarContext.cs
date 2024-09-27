@@ -13,7 +13,7 @@ namespace EspacoStefaniners.BarService.Data
 
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
-        public DbSet<ItensPedido> ItensPedidos { get; set; }
+        public DbSet<ItemPedido> ItensPedidos { get; set; }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
@@ -22,17 +22,11 @@ namespace EspacoStefaniners.BarService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ItensPedido>()
+            modelBuilder.Entity<ItemPedido>()
                .HasOne(ip => ip.Pedido)
                .WithMany(p => p.Itens)
                .HasForeignKey(ip => ip.IdPedido)
                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<ItensPedido>()
-                .HasOne(ip => ip.Produto)
-                .WithMany()
-                .HasForeignKey(ip => ip.IdProduto)
-                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

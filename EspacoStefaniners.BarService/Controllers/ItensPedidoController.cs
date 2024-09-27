@@ -21,7 +21,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// </summary>
         /// <returns>Retorna a lista de todos os itens de pedido</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItensPedido>>> GetAll()
+        public async Task<ActionResult<IEnumerable<ItemPedido>>> GetAll()
         {
             var itensPedidos = await _itensPedidoService.GetAllItensPedidoAsync();
             return Ok(itensPedidos);
@@ -33,7 +33,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <param name="id">ID do item de pedido</param>
         /// <returns>Retorna o item de pedido correspondente ao ID</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<ItensPedido>> GetById(int id)
+        public async Task<ActionResult<ItemPedido>> GetById(int id)
         {
             var itensPedido = await _itensPedidoService.GetItensPedidoByIdAsync(id);
             if (itensPedido == null) return NotFound();
@@ -46,7 +46,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <param name="id">ID do pedido do item de pedido</param>
         /// <returns>Retorna o item de pedido correspondente ao ID</returns>
         [HttpGet("idPedido/{id}")]
-        public async Task<ActionResult<ItensPedido>> GetByIdPedidoAsync(int id)
+        public async Task<ActionResult<ItemPedido>> GetByIdPedidoAsync(int id)
         {
             var itensPedido = await _itensPedidoService.GetItensPedidoByIdPedidoAsync(id);
                                                         
@@ -60,7 +60,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <param name="itensPedido">Dados do item de pedido</param>
         /// <returns>Retorna o item de pedido criado</returns>
         [HttpPost]
-        public async Task<ActionResult<ItensPedido>> Create([FromBody] ItensPedido itensPedido)
+        public async Task<ActionResult<ItemPedido>> Create([FromBody] List<ItemPedido> itensPedido)
         {
             if (!ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace EspacoStefaniners.BarService.Controllers
             }
 
             var newItensPedido = await _itensPedidoService.AddItensPedidoAsync(itensPedido);
-            return CreatedAtAction(nameof(GetById), new { id = newItensPedido.Id }, newItensPedido);
+            return CreatedAtAction(nameof(GetById), new { itensPedido = newItensPedido }, newItensPedido);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <param name="itensPedido">Dados atualizados do item de pedido</param>
         /// <returns>Retorna o item de pedido atualizado</returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<ItensPedido>> Update(int id, [FromBody] ItensPedido itensPedido)
+        public async Task<ActionResult<ItemPedido>> Update(int id, [FromBody] ItemPedido itensPedido)
         {
             if (!ModelState.IsValid)
             {

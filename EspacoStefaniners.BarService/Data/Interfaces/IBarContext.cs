@@ -7,7 +7,7 @@ namespace EspacoStefaniners.BarService.Data.Interfaces
     {
          DbSet<Produto> Produtos { get; set; }
          DbSet<Pedido> Pedidos { get; set; }
-         DbSet<ItensPedido> ItensPedidos { get; set; }
+         DbSet<ItemPedido> ItensPedidos { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
