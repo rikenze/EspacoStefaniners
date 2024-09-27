@@ -41,15 +41,17 @@ namespace EspacoStefaniners.BarService.Services
 
         public async Task<ItensPedido> UpdateItensPedidoAsync(int id, ItensPedido itensPedido)
         {
-            var existingItensPedido = await _context.ItensPedidos.FindAsync(id);
-            if (existingItensPedido == null) return null;
+            var itensPedidoExistente = await _context.ItensPedidos.FindAsync(id);
+            if (itensPedidoExistente == null) return null;
 
-            existingItensPedido.IdPedido = itensPedido.IdPedido;
-            existingItensPedido.IdProduto = itensPedido.IdProduto;
-            existingItensPedido.Quantidade = itensPedido.Quantidade;
+            itensPedidoExistente.IdPedido = itensPedido.IdPedido;
+            itensPedidoExistente.IdProduto = itensPedido.IdProduto;
+            itensPedidoExistente.Quantidade = itensPedido.Quantidade;
+
+            itensPedidoExistente.Produto = itensPedido.Produto;
 
             await _context.SaveChangesAsync();
-            return existingItensPedido;
+            return itensPedidoExistente;
         }
 
         public async Task<bool> DeleteItensPedidoAsync(int id)
