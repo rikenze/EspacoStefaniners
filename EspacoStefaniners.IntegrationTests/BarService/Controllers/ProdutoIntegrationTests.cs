@@ -7,12 +7,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace EspacoStefaniners.IntegrationTests.BarService.Controllers
 {
-    public class BebidasIntegrationTests
+    public class ProdutoIntegrationTests
     {
         private readonly IConfiguration _configuration;
         private readonly BarContext _context;
 
-        public BebidasIntegrationTests()
+        public ProdutoIntegrationTests()
         {
             // Configura a injeção de configuração para testes
             var builder = new ConfigurationBuilder()
@@ -30,26 +30,25 @@ namespace EspacoStefaniners.IntegrationTests.BarService.Controllers
         }
 
         [Fact]
-        public async Task GetBebidaPorIdAsync_RetornaBebidaSelecionada_DeveRetornarABebida()
+        public async Task GetProdutoPorIdAsync_RetornaProdutoSelecionado_DeveRetornarProduto()
         {
-            IProdutoService bebidasService = new ProdutoService(_context);
+            IProdutoService produtoService = new ProdutoService(_context);
 
-            var cerveja = new Produto
+            var produto = new Produto
             {
                 Id = 1,
                 NomeProduto = "Heineken",
                 Valor = 12
             };
 
-            var produto = await bebidasService.GetProdutoPorIdAsync(cerveja.Id);
+            var produtoExistente = await produtoService.GetProdutoPorIdAsync(produto.Id);
 
-            if (produto == null)
+            if (produtoExistente == null)
             {
-                await bebidasService.AddProduto(cerveja);
+                await produtoService.AddProduto(produto);
             }
 
-            var bebida = await bebidasService.GetProdutoPorIdAsync(cerveja.Id);
-            Assert.NotNull(bebida);
+            Assert.NotNull(produtoExistente);
         }
     }
 }
