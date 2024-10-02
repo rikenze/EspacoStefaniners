@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("BarConnection");
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IItensPedidoService, ItensPedidoService>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.AddServiceDefaults();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Adiciona AutoMapper na aplicacao
 
 // Add services to the container.
 builder.Services.AddCors(options =>

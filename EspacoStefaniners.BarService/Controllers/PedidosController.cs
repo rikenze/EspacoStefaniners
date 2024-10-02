@@ -1,4 +1,6 @@
-﻿using EspacoStefaniners.BarService.Models;
+﻿using AutoMapper;
+using EspacoStefaniners.BarService.Data.DTO;
+using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +15,15 @@ namespace EspacoStefaniners.BarService.Controllers
     public class PedidosController : ControllerBase
     {
         private readonly IPedidoService _pedidoService;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Construtor da classe PedidosController.
         /// </summary>
         /// <param name="pedidoService">Serviço de pedidos injetado.</param>
-        public PedidosController(IPedidoService pedidoService)
+        public PedidosController(IMapper mapper, IPedidoService pedidoService)
         {
+            _mapper = mapper;
             _pedidoService = pedidoService;
         }
 
@@ -50,18 +54,47 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <summary>
         /// Cria um novo pedido.
         /// </summary>
+        /// <param name="criarPedidoDTO"></param>
         /// <param name="pedido">Dados do novo pedido.</param>
         /// <returns>O pedido criado.</returns>
         [HttpPost]
-        public async Task<ActionResult<Pedido>> Create([FromBody] Pedido pedido)
+        public async Task<ActionResult<Pedido>> Create([FromBody] CriarPedidoDTO criarPedidoDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var newPedido = await _pedidoService.AddPedidoAsync(pedido);
-            return CreatedAtAction(nameof(GetById), new { id = newPedido.Id }, newPedido);
+            try
+            {
+                Pedido pedido = _mapper.Map<Pedido>(criarPedidoDTO);
+                var novoPedido = await _pedidoService.AddPedidoAsync(pedido);
+
+                if (novoPedido == null)
+                {
+                    return BadRequest("Erro ao criar o pedido.");
+                }
+                
+                var itensPedido = new List<GetItemPedidoDTO>();
+                foreach(var item in novoPedido.Itens)
+                    itensPedido.Add(_mapper.Map<GetItemPedidoDTO>(item));
+         
+                var getPedidoCriado = new GetPedidoDTO
+                {
+                    Id = novoPedido.Id,
+                    NomeCliente = novoPedido.NomeCliente,
+                    EmailCliente = novoPedido.EmailCliente,
+                    Pago = novoPedido.Pago,
+                    ValorTotal = itensPedido.Sum(x => x.Quantidade * x.Produto.Valor),
+                    ItensPedido = itensPedido
+                };
+
+                return CreatedAtAction(nameof(GetById), new { id = novoPedido.Id }, getPedidoCriado);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Erro interno do servidor.");
+            }
         }
 
         /// <summary>

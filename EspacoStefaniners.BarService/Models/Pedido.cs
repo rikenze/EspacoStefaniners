@@ -5,7 +5,6 @@ namespace EspacoStefaniners.BarService.Models
 {
     public class Pedido
     {
-        [SwaggerIgnorePost]
         [Required]
         [Key]
         public int Id { get; set; }
@@ -21,7 +20,6 @@ namespace EspacoStefaniners.BarService.Models
         public bool Pago { get; set; }
 
         // Propriedade de navegação para ItensPedido
-        [JsonIgnore]
-        public virtual ICollection<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
+        public ICollection<ItemPedido> Itens { get; set; }
     }
 }

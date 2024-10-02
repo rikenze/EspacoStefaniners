@@ -1,13 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
-namespace EspacoStefaniners.BarService.Models
+namespace EspacoStefaniners.BarService.Data.DTO
 {
-    public class Produto
+    public class CriarProdutoDTO
     {
-        [Required]
-        [Key]
-        public int Id { get; set; }
         [Required]
         [MaxLength(20)]
         public string NomeProduto { get; set; }
