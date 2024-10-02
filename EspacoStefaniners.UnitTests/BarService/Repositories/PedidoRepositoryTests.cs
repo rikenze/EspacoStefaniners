@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EspacoStefaniners.BarService.Data;
+﻿using EspacoStefaniners.BarService.Data;
 using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
 using Moq;

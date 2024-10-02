@@ -2,23 +2,18 @@
 using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace EspacoStefaniners.BarService.Tests
 {
-    public class ProdutoServiceTests
+    public class ProdutoRepositoryTests
     {
         private readonly Mock<IBarContext> _mockContext;
         private readonly IProdutoRepository _produtoRepository;
         private readonly ProdutoService _produtoService;
 
-        public ProdutoServiceTests()
+        public ProdutoRepositoryTests()
         {
             _mockContext = new Mock<IBarContext>();
             _produtoRepository = new ProdutoRepository(_mockContext.Object);

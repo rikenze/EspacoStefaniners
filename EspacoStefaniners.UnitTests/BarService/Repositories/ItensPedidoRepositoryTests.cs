@@ -6,19 +6,16 @@ using EspacoStefaniners.BarService.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace EspacoStefaniners.BarService.Tests
 {
-    public class ItensPedidoServiceTests
+    public class ItensPedidoRepositoryTests
     {
         private readonly Mock<IBarContext> _mockContext;
         private readonly IItensPedidoRepository _itensPedidoRepository;
         private readonly IItensPedidoService _itensPedidoService;
 
-        public ItensPedidoServiceTests()
+        public ItensPedidoRepositoryTests()
         {
             _mockContext = new Mock<IBarContext>();
             _itensPedidoRepository = new ItensPedidoRepository(this._mockContext.Object);
