@@ -1,4 +1,5 @@
-﻿using EspacoStefaniners.BarService.Data.Interfaces;
+﻿using EspacoStefaniners.BarService.Data;
+using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services;
 using Moq;
@@ -9,12 +10,14 @@ namespace EspacoStefaniners.BarService.Tests
     public class PedidoServiceTests
     {
         private readonly Mock<IBarContext> _mockContext;
+        private readonly IPedidoRepository _pedidoRepository;
         private readonly PedidoService _pedidoService;
 
         public PedidoServiceTests()
         {
             _mockContext = new Mock<IBarContext>();
-            _pedidoService = new PedidoService(_mockContext.Object);
+            _pedidoRepository = new PedidoRepository(_mockContext.Object);
+            _pedidoService = new PedidoService(_pedidoRepository);
         }
 
         [Fact]

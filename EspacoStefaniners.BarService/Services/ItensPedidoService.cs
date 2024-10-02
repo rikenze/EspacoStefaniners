@@ -1,68 +1,46 @@
 ﻿using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace EspacoStefaniners.BarService.Services
 {
     public class ItensPedidoService : IItensPedidoService
     {
-        private readonly IBarContext _context;
+        private readonly IItensPedidoRepository _itensPedidoRepository;
 
-        public ItensPedidoService(IBarContext context)
+        public ItensPedidoService(IItensPedidoRepository itensPedidoRepository)
         {
-            _context = context;
+            _itensPedidoRepository = itensPedidoRepository;
         }
 
         public async Task<List<ItemPedido>> GetAllItensPedidoAsync()
         {
-            return await _context.ItensPedidos.Include(x => x.Produto).Include(y => y.Pedido).ToListAsync();
+            return await _itensPedidoRepository.GetAllItensPedidoAsync();
         }
 
         public async Task<ItemPedido?> GetItensPedidoByIdAsync(int id)
         {
-            return await _context.ItensPedidos.Include(p => p.Pedido).Include(pr => pr.Produto).FirstOrDefaultAsync(x => x.Id == id);
+            return await _itensPedidoRepository.GetItensPedidoByIdAsync(id);
         }
 
         public async Task<ItemPedido?> GetItensPedidoByIdPedidoAsync(int id)
         {
-            return await _context.ItensPedidos.Include(p => p.Pedido).Include(pr => pr.Produto).FirstOrDefaultAsync(x => x.IdPedido == id);
+            return await _itensPedidoRepository.GetItensPedidoByIdPedidoAsync(id);
         }
 
         public async Task<List<ItemPedido>> AddItensPedidoAsync(List<ItemPedido> itensPedido)
         {
-            foreach (var item in itensPedido)
-            {
-                var itens = _context.ItensPedidos.Add(item);
-            }
-            await _context.SaveChangesAsync();
-            return itensPedido;
+            return await _itensPedidoRepository.AddItensPedidoAsync(itensPedido);
         }
 
         public async Task<ItemPedido> UpdateItensPedidoAsync(int id, ItemPedido itemPedido)
         {
-            var itemPedidoExistente = await _context.ItensPedidos.FindAsync(id);
-            if (itemPedidoExistente == null) return null;
-
-            if (itemPedidoExistente != null)
-            {
-                itemPedidoExistente.Pedido = itemPedido.Pedido;
-                itemPedidoExistente.Produto = itemPedido.Produto;
-                itemPedidoExistente.Quantidade = itemPedido.Quantidade;
-            }
-
-            await _context.SaveChangesAsync();
-            return itemPedidoExistente;
+           return await _itensPedidoRepository.UpdateItensPedidoAsync(id, itemPedido);
         }
 
         public async Task<bool> DeleteItensPedidoAsync(int id)
         {
-            var itensPedido = await _context.ItensPedidos.FindAsync(id);
-            if (itensPedido == null) return false;
-
-            _context.ItensPedidos.Remove(itensPedido);
-            await _context.SaveChangesAsync();
-            return true;
+            return await _itensPedidoRepository.DeleteItensPedidoAsync(id);
         }
     }
 }

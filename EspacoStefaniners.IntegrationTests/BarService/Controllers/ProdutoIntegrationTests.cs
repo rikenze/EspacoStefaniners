@@ -1,4 +1,5 @@
 ﻿using EspacoStefaniners.BarService.Data;
+using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services;
 using EspacoStefaniners.BarService.Services.Interfaces;
@@ -11,6 +12,8 @@ namespace EspacoStefaniners.IntegrationTests.BarService.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly BarContext _context;
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly IProdutoService _produtoService;
 
         public ProdutoIntegrationTests()
         {
@@ -27,13 +30,14 @@ namespace EspacoStefaniners.IntegrationTests.BarService.Controllers
 
             _context = new BarContext(options);
             _context.Database.EnsureCreated();
+
+            _produtoRepository = new ProdutoRepository(_context);
+            _produtoService = new ProdutoService(_produtoRepository);
         }
 
         [Fact]
         public async Task GetProdutoPorIdAsync_RetornaProdutoSelecionado_DeveRetornarProduto()
         {
-            IProdutoService produtoService = new ProdutoService(_context);
-
             var produto = new Produto
             {
                 Id = 1,
@@ -41,11 +45,11 @@ namespace EspacoStefaniners.IntegrationTests.BarService.Controllers
                 Valor = 12
             };
 
-            var produtoExistente = await produtoService.GetProdutoPorIdAsync(produto.Id);
+            var produtoExistente = await _produtoService.GetProdutoPorIdAsync(produto.Id);
 
             if (produtoExistente == null)
             {
-                await produtoService.AddProduto(produto);
+                await _produtoService.AddProduto(produto);
             }
 
             Assert.NotNull(produtoExistente);

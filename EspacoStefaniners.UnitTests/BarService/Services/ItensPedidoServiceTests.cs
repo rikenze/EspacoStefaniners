@@ -1,6 +1,8 @@
-﻿using EspacoStefaniners.BarService.Data.Interfaces;
+﻿using EspacoStefaniners.BarService.Data;
+using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
 using EspacoStefaniners.BarService.Services;
+using EspacoStefaniners.BarService.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
@@ -13,12 +15,14 @@ namespace EspacoStefaniners.BarService.Tests
     public class ItensPedidoServiceTests
     {
         private readonly Mock<IBarContext> _mockContext;
-        private readonly ItensPedidoService _itensPedidoService;
+        private readonly IItensPedidoRepository _itensPedidoRepository;
+        private readonly IItensPedidoService _itensPedidoService;
 
         public ItensPedidoServiceTests()
         {
             _mockContext = new Mock<IBarContext>();
-            _itensPedidoService = new ItensPedidoService(_mockContext.Object);
+            _itensPedidoRepository = new ItensPedidoRepository(this._mockContext.Object);
+            _itensPedidoService = new ItensPedidoService(_itensPedidoRepository);
         }
 
         [Fact]
