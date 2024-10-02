@@ -1,23 +1,21 @@
-﻿using EspacoStefaniners.BarService.Data;
+﻿using AutoMapper;
+using EspacoStefaniners.BarService.Data;
 using EspacoStefaniners.BarService.Data.Interfaces;
 using EspacoStefaniners.BarService.Models;
-using EspacoStefaniners.BarService.Services;
 using Moq;
 using Moq.EntityFrameworkCore;
 
 namespace EspacoStefaniners.BarService.Tests
 {
-    public class PedidoServiceTests
+    public class PedidoRepositoryTests
     {
         private readonly Mock<IBarContext> _mockContext;
         private readonly IPedidoRepository _pedidoRepository;
-        private readonly PedidoService _pedidoService;
 
-        public PedidoServiceTests()
+        public PedidoRepositoryTests()
         {
             _mockContext = new Mock<IBarContext>();
             _pedidoRepository = new PedidoRepository(_mockContext.Object);
-            _pedidoService = new PedidoService(_pedidoRepository);
         }
 
         [Fact]
@@ -33,7 +31,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos).ReturnsDbSet(pedidos);
 
             // Act
-            var result = await _pedidoService.GetAllPedidosAsync();
+            var result = await _pedidoRepository.GetAllPedidosAsync();
 
             // Assert
             Assert.Equal(2, result.Count());
@@ -48,7 +46,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos).ReturnsDbSet(new List<Pedido> { pedido });
 
             // Act
-            var result = await _pedidoService.GetPedidoByIdAsync(pedidoId);
+            var result = await _pedidoRepository.GetPedidoByIdAsync(pedidoId);
 
             // Assert
             Assert.NotNull(result);
@@ -63,7 +61,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(x => x.Pedidos).ReturnsDbSet(new List<Pedido>() { pedido });
 
             // Act
-            var result = await _pedidoService.AddPedidoAsync(pedido);
+            var result = await _pedidoRepository.AddPedidoAsync(pedido);
 
             // Assert
             Assert.NotNull(result);
@@ -81,7 +79,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync((Pedido)null);
 
             // Act
-            var result = await _pedidoService.UpdatePedidoAsync(pedidoId, pedido);
+            var result = await _pedidoRepository.UpdatePedidoAsync(pedidoId, pedido);
 
             // Assert
             Assert.Null(result);
@@ -98,7 +96,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync(pedidoExistente);
 
             // Act
-            var result = await _pedidoService.UpdatePedidoAsync(pedidoId, pedidoAtualizado);
+            var result = await _pedidoRepository.UpdatePedidoAsync(pedidoId, pedidoAtualizado);
 
             // Assert
             Assert.NotNull(result);
@@ -115,7 +113,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync(pedido);
 
             // Act
-            var result = await _pedidoService.DeletePedidoAsync(pedidoId);
+            var result = await _pedidoRepository.DeletePedidoAsync(pedidoId);
 
             // Assert
             Assert.True(result);
@@ -131,7 +129,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync((Pedido)null);
 
             // Act
-            var result = await _pedidoService.DeletePedidoAsync(pedidoId);
+            var result = await _pedidoRepository.DeletePedidoAsync(pedidoId);
 
             // Assert
             Assert.False(result);

@@ -44,8 +44,6 @@ builder.Services.AddSwaggerGen(s =>
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     s.IncludeXmlComments(xmlPath);
-
-    s.SchemaFilter<SwaggerIgnorePostSchemaFilter>();
 });
 
 builder.Services.AddDbContext<IBarContext, BarContext>();
