@@ -1,4 +1,5 @@
-﻿using EspacoStefaniners.BarService.Models;
+﻿using EspacoStefaniners.BarService.Data.DTO;
+using EspacoStefaniners.BarService.Models;
 
 namespace EspacoStefaniners.BarService.Services.Interfaces
 {
@@ -6,7 +7,7 @@ namespace EspacoStefaniners.BarService.Services.Interfaces
     {
         Task<IEnumerable<Pedido>> GetAllPedidosAsync();
         Task<Pedido> GetPedidoByIdAsync(int id);
-        Task<Pedido> AddPedidoAsync(Pedido pedido);
+        Task<GetPedidoDTO> AddPedidoAsync(CriarPedidoDTO criarPedidoDTO);
         Task<Pedido> UpdatePedidoAsync(int id, Pedido pedido);
         Task<bool> DeletePedidoAsync(int id);
     }

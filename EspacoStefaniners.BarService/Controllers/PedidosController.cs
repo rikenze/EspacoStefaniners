@@ -15,15 +15,13 @@ namespace EspacoStefaniners.BarService.Controllers
     public class PedidosController : ControllerBase
     {
         private readonly IPedidoService _pedidoService;
-        private readonly IMapper _mapper;
 
         /// <summary>
         /// Construtor da classe PedidosController.
         /// </summary>
         /// <param name="pedidoService">Serviço de pedidos injetado.</param>
-        public PedidosController(IMapper mapper, IPedidoService pedidoService)
+        public PedidosController(IPedidoService pedidoService)
         {
-            _mapper = mapper;
             _pedidoService = pedidoService;
         }
 
@@ -67,29 +65,9 @@ namespace EspacoStefaniners.BarService.Controllers
 
             try
             {
-                Pedido pedido = _mapper.Map<Pedido>(criarPedidoDTO);
-                var novoPedido = await _pedidoService.AddPedidoAsync(pedido);
+                var novoPedido = await _pedidoService.AddPedidoAsync(criarPedidoDTO);
 
-                if (novoPedido == null)
-                {
-                    return BadRequest("Erro ao criar o pedido.");
-                }
-                
-                var itensPedido = new List<GetItemPedidoDTO>();
-                foreach(var item in novoPedido.Itens)
-                    itensPedido.Add(_mapper.Map<GetItemPedidoDTO>(item));
-         
-                var getPedidoCriado = new GetPedidoDTO
-                {
-                    Id = novoPedido.Id,
-                    NomeCliente = novoPedido.NomeCliente,
-                    EmailCliente = novoPedido.EmailCliente,
-                    Pago = novoPedido.Pago,
-                    ValorTotal = itensPedido.Sum(x => x.Quantidade * x.Produto.Valor),
-                    ItensPedido = itensPedido
-                };
-
-                return CreatedAtAction(nameof(GetById), new { id = novoPedido.Id }, getPedidoCriado);
+                return CreatedAtAction(nameof(GetById), new { id = novoPedido.Id }, novoPedido);
             }
             catch (Exception ex)
             {
