@@ -23,8 +23,8 @@ namespace EspacoStefaniners.BarService.Services
             var pedidosDTO = new List<GetPedidoDTO>();
             foreach (var pedido in pedidos)
             {
-                var pedidoDTO =_mapper.Map<GetPedidoDTO>(pedido);
-                pedidoDTO.ValorTotal = pedidoDTO.ItensPedido.Sum(x => x.Quantidade * x.ValorUnitario);
+                var pedidoDTO = _mapper.Map<GetPedidoDTO>(pedido);
+                GetValorTotal(pedidoDTO);
                 pedidosDTO.Add(pedidoDTO);
             }
             return pedidosDTO;
@@ -33,7 +33,14 @@ namespace EspacoStefaniners.BarService.Services
         public async Task<GetPedidoDTO?> GetPedidoByIdAsync(int id)
         {
             var pedido = await _pedidoRepository.GetPedidoByIdAsync(id);
-            return _mapper.Map<GetPedidoDTO>(pedido);
+            var pedidoDTO = _mapper.Map<GetPedidoDTO>(pedido);
+            GetValorTotal(pedidoDTO);
+            return pedidoDTO;
+        }
+
+        private void GetValorTotal(GetPedidoDTO pedidoDTO)
+        {
+            pedidoDTO.ValorTotal = pedidoDTO.ItensPedido.Sum(x => x.Quantidade * x.ValorUnitario);
         }
 
         public async Task<GetPedidoDTO> AddPedidoAsync(CriarPedidoDTO criarPedidoDTO)
