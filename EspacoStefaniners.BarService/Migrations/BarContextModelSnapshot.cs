@@ -38,7 +38,7 @@ namespace EspacoStefaniners.BarService.Migrations
 
                     b.HasIndex("IdProduto");
 
-                    b.ToTable("ItensPedidos");
+                    b.ToTable("ItensPedidos", (string)null);
                 });
 
             modelBuilder.Entity("EspacoStefaniners.BarService.Models.Pedido", b =>
@@ -65,7 +65,7 @@ namespace EspacoStefaniners.BarService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pedidos");
+                    b.ToTable("Pedidos", (string)null);
                 });
 
             modelBuilder.Entity("EspacoStefaniners.BarService.Models.Produto", b =>
@@ -84,7 +84,7 @@ namespace EspacoStefaniners.BarService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("Produtos", (string)null);
                 });
 
             modelBuilder.Entity("EspacoStefaniners.BarService.Models.ItensPedido", b =>

@@ -17,14 +17,23 @@ namespace EspacoStefaniners.BarService.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Pedido>> GetAllPedidosAsync()
+        public async Task<IEnumerable<GetPedidoDTO>> GetAllPedidosAsync()
         {
-            return await _pedidoRepository.GetAllPedidosAsync();
+            var pedidos = await _pedidoRepository.GetAllPedidosAsync();
+            var pedidosDTO = new List<GetPedidoDTO>();
+            foreach (var pedido in pedidos)
+            {
+                var pedidoDTO =_mapper.Map<GetPedidoDTO>(pedido);
+                pedidoDTO.ValorTotal = pedidoDTO.ItensPedido.Sum(x => x.Quantidade * x.ValorUnitario);
+                pedidosDTO.Add(pedidoDTO);
+            }
+            return pedidosDTO;
         }
 
-        public async Task<Pedido?> GetPedidoByIdAsync(int id)
+        public async Task<GetPedidoDTO?> GetPedidoByIdAsync(int id)
         {
-            return await _pedidoRepository.GetPedidoByIdAsync(id);
+            var pedido = await _pedidoRepository.GetPedidoByIdAsync(id);
+            return _mapper.Map<GetPedidoDTO>(pedido);
         }
 
         public async Task<GetPedidoDTO> AddPedidoAsync(CriarPedidoDTO criarPedidoDTO)
@@ -38,7 +47,7 @@ namespace EspacoStefaniners.BarService.Services
             }
 
             var itensPedido = new List<GetItemPedidoDTO>();
-            foreach (var item in novoPedido.Itens)
+            foreach (var item in novoPedido.ItensPedido)
                 itensPedido.Add(_mapper.Map<GetItemPedidoDTO>(item));
 
             var getPedidoCriado = new GetPedidoDTO
@@ -54,9 +63,10 @@ namespace EspacoStefaniners.BarService.Services
             return getPedidoCriado;
         }
 
-        public async Task<Pedido> UpdatePedidoAsync(int id, Pedido pedido)
+        public async Task<GetPedidoDTO> UpdatePedidoAsync(int id, Pedido pedido)
         {
-            return await _pedidoRepository.UpdatePedidoAsync(id, pedido);
+            var pedidoDb = await _pedidoRepository.UpdatePedidoAsync(id, pedido);
+            return _mapper.Map<GetPedidoDTO>(pedidoDb);
         }
 
         public async Task<bool> DeletePedidoAsync(int id)

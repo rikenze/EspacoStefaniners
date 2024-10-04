@@ -5,10 +5,10 @@ namespace EspacoStefaniners.BarService.Services.Interfaces
 {
     public interface IPedidoService
     {
-        Task<IEnumerable<Pedido>> GetAllPedidosAsync();
-        Task<Pedido> GetPedidoByIdAsync(int id);
+        Task<IEnumerable<GetPedidoDTO>> GetAllPedidosAsync();
+        Task<GetPedidoDTO> GetPedidoByIdAsync(int id);
         Task<GetPedidoDTO> AddPedidoAsync(CriarPedidoDTO criarPedidoDTO);
-        Task<Pedido> UpdatePedidoAsync(int id, Pedido pedido);
+        Task<GetPedidoDTO> UpdatePedidoAsync(int id, Pedido pedido);
         Task<bool> DeletePedidoAsync(int id);
     }
 }

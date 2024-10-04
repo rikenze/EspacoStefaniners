@@ -23,8 +23,8 @@ namespace EspacoStefaniners.BarService.Tests
             // Arrange
             var pedidos = new List<Pedido>
             {
-                new Pedido { Id = 1, NomeCliente = "Cliente 1", Itens = new List<ItemPedido>() },
-                new Pedido { Id = 2, NomeCliente = "Cliente 2", Itens = new List<ItemPedido>() }
+                new Pedido { Id = 1, NomeCliente = "Cliente 1", ItensPedido = new List<ItemPedido>() },
+                new Pedido { Id = 2, NomeCliente = "Cliente 2", ItensPedido = new List<ItemPedido>() }
             };
 
             _mockContext.Setup(c => c.Pedidos).ReturnsDbSet(pedidos);
@@ -41,7 +41,7 @@ namespace EspacoStefaniners.BarService.Tests
         {
             // Arrange
             var pedidoId = 1;
-            var pedido = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", Itens = new List<ItemPedido>() };
+            var pedido = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", ItensPedido = new List<ItemPedido>() };
             _mockContext.Setup(c => c.Pedidos).ReturnsDbSet(new List<Pedido> { pedido });
 
             // Act
@@ -56,7 +56,7 @@ namespace EspacoStefaniners.BarService.Tests
         public async Task AddPedidoAsync_DeveAdicionarPedido()
         {
             // Arrange
-            var pedido = new Pedido { Id = 1, NomeCliente = "Cliente 1", Itens = new List<ItemPedido>() };
+            var pedido = new Pedido { Id = 1, NomeCliente = "Cliente 1", ItensPedido = new List<ItemPedido>() };
             _mockContext.Setup(x => x.Pedidos).ReturnsDbSet(new List<Pedido>() { pedido });
 
             // Act
@@ -74,7 +74,7 @@ namespace EspacoStefaniners.BarService.Tests
         {
             // Arrange
             var pedidoId = 1;
-            var pedido = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", Itens = new List<ItemPedido>() };
+            var pedido = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", ItensPedido = new List<ItemPedido>() };
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync((Pedido)null);
 
             // Act
@@ -89,8 +89,8 @@ namespace EspacoStefaniners.BarService.Tests
         {
             // Arrange
             var pedidoId = 1;
-            var pedidoExistente = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", Itens = new List<ItemPedido>() };
-            var pedidoAtualizado = new Pedido { Id = pedidoId, NomeCliente = "Cliente 2", Itens = new List<ItemPedido>() };
+            var pedidoExistente = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", ItensPedido = new List<ItemPedido>() };
+            var pedidoAtualizado = new Pedido { Id = pedidoId, NomeCliente = "Cliente 2", ItensPedido = new List<ItemPedido>() };
 
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync(pedidoExistente);
 
@@ -108,7 +108,7 @@ namespace EspacoStefaniners.BarService.Tests
         {
             // Arrange
             var pedidoId = 1;
-            var pedido = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", Itens = new List<ItemPedido>() };
+            var pedido = new Pedido { Id = pedidoId, NomeCliente = "Cliente 1", ItensPedido = new List<ItemPedido>() };
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync(pedido);
 
             // Act

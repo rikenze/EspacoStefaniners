@@ -24,7 +24,7 @@ namespace EspacoStefaniners.BarService.Data
         {
             modelBuilder.Entity<ItemPedido>()
                .HasOne(ip => ip.Pedido)
-               .WithMany(p => p.Itens)
+               .WithMany(p => p.ItensPedido)
                .HasForeignKey(ip => ip.IdPedido)
                .OnDelete(DeleteBehavior.Cascade);
 

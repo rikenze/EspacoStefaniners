@@ -15,12 +15,12 @@ namespace EspacoStefaniners.BarService.Data
 
         public async Task<IEnumerable<Pedido>> GetAllPedidosAsync()
         {
-            return await _context.Pedidos.Include(p => p.Itens).ToListAsync();
+            return await _context.Pedidos.Include(p => p.ItensPedido).ThenInclude(p => p.Produto).ToListAsync();
         }
 
         public async Task<Pedido?> GetPedidoByIdAsync(int id)
         {
-            return await _context.Pedidos.Include(p => p.Itens).FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Pedidos.Include(p => p.ItensPedido).ThenInclude(p => p.Produto).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Pedido> AddPedidoAsync(Pedido pedido)
@@ -39,7 +39,7 @@ namespace EspacoStefaniners.BarService.Data
             existingPedido.EmailCliente = pedido.EmailCliente;
             existingPedido.DataCriacao = pedido.DataCriacao;
             existingPedido.Pago = pedido.Pago;
-            existingPedido.Itens = pedido.Itens;
+            existingPedido.ItensPedido = pedido.ItensPedido;
 
             await _context.SaveChangesAsync();
             return existingPedido;

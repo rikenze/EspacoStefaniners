@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace EspacoStefaniners.BarService.Models
 {
@@ -20,6 +19,6 @@ namespace EspacoStefaniners.BarService.Models
         public bool Pago { get; set; }
 
         // Propriedade de navegação para ItensPedido
-        public ICollection<ItemPedido> Itens { get; set; }
+        public ICollection<ItemPedido> ItensPedido { get; set; }
     }
 }

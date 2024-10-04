@@ -30,7 +30,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// </summary>
         /// <returns>Uma lista de pedidos.</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pedido>>> GetAll()
+        public async Task<ActionResult<IEnumerable<GetPedidoDTO>>> GetAll()
         {
             var pedidos = await _pedidoService.GetAllPedidosAsync();
             return Ok(pedidos);
