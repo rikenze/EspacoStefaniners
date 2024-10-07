@@ -12,6 +12,10 @@ namespace EspacoStefaniners.BarService.Profiles
             CreateMap<ItemPedido, GetItemPedidoDTO>();
             CreateMap<Produto, GetItemPedidoDTO>();
             CreateMap<Pedido, GetPedidoDTO>();
+            CreateMap<EditarPedidoDTO, Pedido>();
+            CreateMap<EditarItemPedidoDTO, ItemPedido>();
+            CreateMap<EditarProdutoDTO, Produto>();
+
         }
     }
 }

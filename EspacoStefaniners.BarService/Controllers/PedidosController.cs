@@ -42,7 +42,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <param name="id">ID do pedido.</param>
         /// <returns>O pedido correspondente ao ID.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Pedido>> GetById(int id)
+        public async Task<ActionResult<GetPedidoDTO>> GetById(int id)
         {
             var pedido = await _pedidoService.GetPedidoByIdAsync(id);
             if (pedido == null) return NotFound();
@@ -56,7 +56,7 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <param name="pedido">Dados do novo pedido.</param>
         /// <returns>O pedido criado.</returns>
         [HttpPost]
-        public async Task<ActionResult<Pedido>> Create([FromBody] CriarPedidoDTO criarPedidoDTO)
+        public async Task<ActionResult<GetPedidoDTO>> Create([FromBody] CriarPedidoDTO criarPedidoDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -82,9 +82,9 @@ namespace EspacoStefaniners.BarService.Controllers
         /// <param name="pedido">Dados atualizados do pedido.</param>
         /// <returns>O pedido atualizado.</returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<Pedido>> Update(int id, [FromBody] Pedido pedido)
+        public async Task<ActionResult<GetPedidoDTO>> Update(int id, [FromBody] EditarPedidoDTO editarPedidoDTO)
         {
-            var updatedPedido = await _pedidoService.UpdatePedidoAsync(id, pedido);
+            var updatedPedido = await _pedidoService.UpdatePedidoAsync(id, editarPedidoDTO);
             if (updatedPedido == null) return NotFound();
             return Ok(updatedPedido);
         }

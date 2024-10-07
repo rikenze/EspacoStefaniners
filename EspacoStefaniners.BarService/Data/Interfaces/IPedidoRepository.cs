@@ -7,7 +7,7 @@ namespace EspacoStefaniners.BarService.Data.Interfaces
         Task<IEnumerable<Pedido>> GetAllPedidosAsync();
         Task<Pedido> GetPedidoByIdAsync(int id);
         Task<Pedido> AddPedidoAsync(Pedido pedido);
-        Task<Pedido> UpdatePedidoAsync(int id, Pedido pedido);
+        Task<Pedido> UpdatePedidoAsync(Pedido pedido);
         Task<bool> DeletePedidoAsync(int id);
     }
 }

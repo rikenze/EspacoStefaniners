@@ -78,7 +78,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync((Pedido)null);
 
             // Act
-            var result = await _pedidoRepository.UpdatePedidoAsync(pedidoId, pedido);
+            var result = await _pedidoRepository.UpdatePedidoAsync(pedido);
 
             // Assert
             Assert.Null(result);
@@ -95,7 +95,7 @@ namespace EspacoStefaniners.BarService.Tests
             _mockContext.Setup(c => c.Pedidos.FindAsync(pedidoId)).ReturnsAsync(pedidoExistente);
 
             // Act
-            var result = await _pedidoRepository.UpdatePedidoAsync(pedidoId, pedidoAtualizado);
+            var result = await _pedidoRepository.UpdatePedidoAsync(pedidoAtualizado);
 
             // Assert
             Assert.NotNull(result);

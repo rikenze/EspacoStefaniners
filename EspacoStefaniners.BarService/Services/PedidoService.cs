@@ -70,9 +70,11 @@ namespace EspacoStefaniners.BarService.Services
             return getPedidoCriado;
         }
 
-        public async Task<GetPedidoDTO> UpdatePedidoAsync(int id, Pedido pedido)
+        public async Task<GetPedidoDTO> UpdatePedidoAsync(int id, EditarPedidoDTO editarPedidoDTO)
         {
-            var pedidoDb = await _pedidoRepository.UpdatePedidoAsync(id, pedido);
+            var pedido = _mapper.Map<Pedido>(editarPedidoDTO);
+            pedido.Id = id;
+            var pedidoDb = await _pedidoRepository.UpdatePedidoAsync(pedido);
             return _mapper.Map<GetPedidoDTO>(pedidoDb);
         }
 

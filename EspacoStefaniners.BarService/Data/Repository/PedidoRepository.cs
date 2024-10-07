@@ -30,9 +30,9 @@ namespace EspacoStefaniners.BarService.Data
             return pedido;
         }
 
-        public async Task<Pedido> UpdatePedidoAsync(int id, Pedido pedido)
+        public async Task<Pedido> UpdatePedidoAsync(Pedido pedido)
         {
-            var existingPedido = await _context.Pedidos.FindAsync(id);
+            var existingPedido = await _context.Pedidos.FindAsync(pedido.Id);
             if (existingPedido == null) return null;
 
             existingPedido.NomeCliente = pedido.NomeCliente;

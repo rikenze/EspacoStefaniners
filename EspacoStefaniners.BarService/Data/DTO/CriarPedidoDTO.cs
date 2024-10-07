@@ -7,7 +7,7 @@ namespace EspacoStefaniners.BarService.Data.DTO
     {
         public CriarPedidoDTO()
         {
-            Itens = new List<CriarItemPedidoDTO>();
+            ItensPedido = new List<CriarItemPedidoDTO>();
         }
 
         [Required]
@@ -20,6 +20,6 @@ namespace EspacoStefaniners.BarService.Data.DTO
         public bool Pago { get; set; }
 
         [Required]
-        public List<CriarItemPedidoDTO> Itens { get; set; }
+        public List<CriarItemPedidoDTO> ItensPedido { get; set; }
     }
 }
