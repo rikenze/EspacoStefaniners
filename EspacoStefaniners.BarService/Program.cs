@@ -15,8 +15,6 @@ builder.Services.AddDbContext<BarContext>(opts => opts.UseSqlite(connectionStrin
 // Adiciona os serviços
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
-builder.Services.AddScoped<IItensPedidoRepository, ItensPedidoRepository>();
-builder.Services.AddScoped<IItensPedidoService, ItensPedidoService>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.AddServiceDefaults();
